@@ -1,0 +1,277 @@
+\documentclass[oneside,final,12pt]{extreport}
+
+%% my command
+%%%%%%%%%%%%%%
+% Путь к файлу с изображениями
+\newcommand{\picPath}{images}
+% Величина отступа
+\newcommand{\indentSpace}{1.25cm}
+% Сокращения
+\newcommand{\urlTitle}{ $-$ URL: }
+%%%%%%%%%%%%%%%
+
+
+% Изменяем шрифт
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\listfiles
+
+% Полуторный интервал
+\linespread{1.6}
+
+% Отступ
+\setlength\parindent{\indentSpace}
+
+% Математика
+\usepackage{mathtools}
+
+
+% Картинки
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+% Языковой пакет
+\usepackage[russianb]{babel}
+
+% Таблицы
+\usepackage{tabularx}
+
+% Настройка подписей к фигурам
+% Меняем заголовки картинок
+\usepackage[ labelsep= endash]{caption}
+\captionsetup{%
+   figurename= Рисунок,
+   tablename= Таблица,
+   justification= centering, singlelinecheck=false
+}         
+
+\captionsetup[table]
+{
+justification= raggedright, singlelinecheck=false
+}
+% Кирилица в подфигурах
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+% разделитель в подфигурах - правая скобка
+\DeclareCaptionLabelSeparator{r_paranthesis}{)\quad }
+\captionsetup[subfigure]{labelformat=simple, labelsep=r_paranthesis}
+
+% Добавляем итератор \asbuk,
+% чтобы использовать кирилицу
+% как маркеры
+\usepackage{enumitem}
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+\makeatother
+
+% Меняем маркеры в перечислениях
+% Списки уровня 1
+\setlist[enumerate,1]{label=\arabic*),ref=\arabic*}
+% Списки уровня 2
+\setlist[enumerate,2]{label=\asbuk*),ref=\asbuk*}
+% Перечисления
+\setlist[itemize,1]{label=$-$}
+% Удаляем отступы перед и после
+% списка
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
+
+% Красная строка в начале главы
+\usepackage{indentfirst}
+
+% Убиваем перенос
+\usepackage[none]{hyphenat}
+
+% Перенос длинных ссылок
+\usepackage[hyphens]{url}
+\urlstyle{same}
+
+% Выравнивание по ширине
+\usepackage{microtype}
+
+%\usepackage[fontfamily=courier]{fancyvrb}
+%\usepackage{verbatim}%     configurable verbatim
+% \makeatletter
+%  \def\verbatim@font{\normalfont\sffamily% select the font
+%                     \let\do\do@noligs
+%                     \verbatim@nolig@list}
+%\makeatother
+
+% Границы
+\usepackage{vmargin}
+\setpapersize{A4}
+% отступы
+%\setmarginsrb 
+%{3cm} % левый
+%{2cm} % верхний
+%{1cm} % Правый
+%{2cm} % Нижний
+%{0pt}{0mm} % Высота - отступ верхнего колонтитула
+%{0pt}{0mm} % Высота - отступ нижнего  колонтитула
+
+\setlength\hoffset{0cm}
+\setlength\voffset{0cm}
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=2cm,
+]{geometry}
+ 		
+% Настройка заглавиий
+\addto\captionsrussian{% Replace "english" with the language you use
+  \renewcommand{\contentsname}% содержания
+    {\hfill\bfseries
+    СОДЕРЖАНИЕ
+	\hfill    
+    }%
+   \renewcommand{\bibname}% списка источников
+    {\hfill\bfseries
+    	СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ
+	\hfill
+	}% 
+}%\
+
+%\renewcommand{\contentsname}{\hfill\bfseries СОДЕРЖАНИЕ \hfill} 
+
+% Настройка  заглавий в главах
+\usepackage{titlesec}
+
+
+%\titleformat
+%{\chapter} % command
+%[display]
+%{
+%\bfseries
+%} % format
+%{
+%\thechapter.
+%} 	% label
+%{ 
+%	0 pt
+%} % sep
+%{    
+%\centering
+%} % before-code
+
+\titleformat{\chapter}
+			[block]
+            {\bfseries }
+            {\hspace{\indentSpace}\thechapter}
+            {1em}
+            {\vspace{0mm} }
+            [\vspace{14pt}]% Отступ после
+% Начальный сдвиг заголовка 50 pt = 1.763888888cm.
+% Второй параметр- сдвиг до = 2cm - 50pt
+\titlespacing{\chapter}{0pt}
+{-0.2361cm}{0pt}
+
+\titleformat{\section}[block]
+{\bfseries}{\hspace{\indentSpace}\thesection}{1em}{}
+
+%\titlespacing{\section}{0pt}{0pt}{0pt}
+
+\titleformat{\subsection}[block]
+{\bfseries}{\hspace{\indentSpace}\thesubsection}{1em}{}
+
+%\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+%\titleformat{\section}
+%            {\bfseries}
+%            {\thechapter.\hspace{1em}}
+%            {0pt}
+%            {\centering
+%            \vspace{0mm} }
+%            [\vspace{14pt}]% Отступ после
+%\titlespacing{\section}{0pt}{-50pt}{0pt}
+
+% Конец настройка заглавий
+
+% Форматирование списка источников
+% Bibl label
+\makeatletter
+\renewcommand*{\@biblabel}[1]{\indent#1}
+\makeatother
+
+% Убрать отсупы в списке источников
+\usepackage{lipsum}
+
+% ADD THE FOLLOWING COUPLE LINES INTO YOUR PREAMBLE
+%\let\OLDthebibliography\thebibliography
+%\renewcommand\thebibliography[1]{
+% \OLDthebibliography{#1}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\itemsep}{0pt plus 0.3ex}
+%}
+
+% Change indent
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}
+  {\advance\leftmargin\labelsep}
+  {\leftmargin=0pt\itemindent=\labelwidth\advance\itemindent\labelsep}
+  {}{}
+  
+% Define separations
+\patchcmd{\thebibliography}{\sloppy}{\itemsep -0.28cm \parsep 0pt \sloppy}{}{}
+  
+
+
+
+% Добавить точки в оглавление
+\usepackage{tocstyle}
+\newcommand{\autodot}{}
+
+
+% Чтобы картинки вставляись
+% куда надо
+\usepackage{float}
+
+% Для вычисления кол-ва страниц
+\usepackage{lastpage}
+
+% Для вычисления кол-ва рисунков и таблиц
+%%%
+\usepackage{etoolbox}
+
+\newcounter{totfigures}
+\newcounter{tottables}
+
+\providecommand\totfig{} 
+\providecommand\tottab{}
+
+\makeatletter
+\AtEndDocument{%
+  \addtocounter{totfigures}{\value{figure}}%
+  \addtocounter{tottables}{\value{table}}%
+  \immediate\write\@mainaux{%
+    \string\gdef\string\totfig{\number\value{totfigures}}%
+    \string\gdef\string\tottab{\number\value{tottables}}%
+  }%
+}
+\makeatother
+
+\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
+\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
+%%%
+
+% Режим релиза
+\sloppy
+\usepackage{layout}
+
+%\renewcommand{\arraystretch}{1.6}
+
+\newcommand{\cmmnt}[1]{\ignorespaces}
+\newcommand{\bs}{\boldsymbol}
+\usepackage{breqn}
+
+% Change intemize intend
+\usepackage{calc}
+
+\usepackage{listings}
+
+\newlength{\mylength}
+\settowidth{\mylength}{$-$\textvisiblespace}
+
+\setlist{itemindent= \mylength + \indentSpace ,leftmargin=0pt}
+\begin{document}
+\tableofcontents
+\newpage
+\textbf{Введение}
+\addcontentsline{toc}{chapter}{Введение}
+
+\end{document}
